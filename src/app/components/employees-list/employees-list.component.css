@@ -1,0 +1,31 @@
+.employee-photo {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.table-responsive {
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+.text-danger {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.btn-group .btn {
+  margin-right: 5px;
+}
+
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+}
