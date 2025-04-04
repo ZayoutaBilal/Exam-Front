@@ -1,0 +1,57 @@
+<form [formGroup]="form" (ngSubmit)="actionMade()">
+  <button id="close_btn" type="button" class="btn btn-danger" (click)="closeModal()">X</button>
+
+  <div class="row">
+    <h2>{{ action === 'add' ? 'Add' : 'Update' }} an Employee</h2>
+  </div>
+
+  <div class="row mb-3">
+    <input formControlName="firstName" type="text" class="form-control" placeholder="First Name">
+    <div *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched" class="text-danger">
+      First name is required
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <input formControlName="lastName" type="text" class="form-control" placeholder="Last Name">
+    <div *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched" class="text-danger">
+      Last name is required
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <input formControlName="email" type="email" class="form-control" placeholder="Email">
+    <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-danger">
+      <div *ngIf="form.get('email')?.errors?.['required']">Email is required</div>
+      <div *ngIf="form.get('email')?.errors?.['email']">Invalid email format</div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <input formControlName="age" type="number" class="form-control" placeholder="Age">
+    <div *ngIf="form.get('age')?.invalid && form.get('age')?.touched" class="text-danger">
+      <div *ngIf="form.get('age')?.errors?.['required']">Age is required</div>
+      <div *ngIf="form.get('age')?.errors?.['min']">Minimum age is 18</div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <select formControlName="department" class="form-control">
+      <option value="" disabled selected>Select Department</option>
+      <option *ngFor="let department of departments" [value]="department.id">
+        {{ department.name }}
+      </option>
+    </select>
+    <div *ngIf="form.get('department')?.invalid && form.get('department')?.touched" class="text-danger">
+      Department is required
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <input type="file" (change)="fileSelected($event)" class="form-control">
+  </div>
+
+  <button id="valider" type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    {{ action === 'add' ? 'Add' : 'Update' }}
+  </button>
+</form>
