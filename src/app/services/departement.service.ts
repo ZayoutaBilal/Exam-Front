@@ -10,18 +10,17 @@ import {environment} from "../environments/environment";
 })
 export class DepartementService {
 
-  private headers: HttpHeaders | undefined;
+  private headers : HttpHeaders = new HttpHeaders();
 
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.authService.getToken().subscribe((token) => {
-      token ? this.headers = new HttpHeaders({ Authorization: `Bearer ${token}` })
-        : this.headers = new HttpHeaders();
-    });
+    // this.authService.getToken().subscribe((token) => {
+    //   token ? this.headers = new HttpHeaders()
+    //     : this.headers = new HttpHeaders();
+    // });
   }
 
   getAllDepartments(): Observable<HttpResponse<Departement[]>> {
-    console.log(this.headers)
-    return this.http.get<Departement[]>(`${environment.apiUrl}/admin/departements`,{headers : this.headers , observe : "response"});
+    return this.http.get<Departement[]>(`${environment.apiUrl}/admin/departements`,{withCredentials:true , observe : "response"});
   }
 }

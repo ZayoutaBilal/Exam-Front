@@ -18,7 +18,7 @@ export class UserService {
 
   login(body : any): Observable<HttpResponse<UserLoggedInModule>> {
     return this.http.post<UserLoggedInModule>(`${this.apiURL}/auth/login`, body, {
-      headers: this.headers,
+      withCredentials: true ,
       observe: 'response'
     });
   }

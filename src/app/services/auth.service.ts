@@ -42,7 +42,7 @@ export class AuthService {
   }
 
   logIn(token: string,authorities: string[]) {
-    this.setToken(token);
+    //this.setToken(token);
     this.loggedIn.next(true);
     this.router.navigate(['/employees']).then();
   }

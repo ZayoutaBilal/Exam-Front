@@ -14,22 +14,22 @@ export class EmployeeService {
 
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.authService.getToken().subscribe((token) => {
-      token ? this.headers = new HttpHeaders({ Authorization: `Bearer ${token}` })
-        : this.headers = new HttpHeaders();
-    });
+    // this.authService.getToken().subscribe((token) => {
+    //   token ? this.headers = new HttpHeaders({ Authorization: `Bearer ${token}` })
+    //     : this.headers = new HttpHeaders();
+    // });
   }
 
   getAllEmployeesByDepartmentId(id : number): Observable<HttpResponse<Employee[]>> {
-    return this.http.get<Employee[]>(`${environment.apiUrl}/admin/departement/${id}/employes`,{headers : this.headers , observe : "response"});
+    return this.http.get<Employee[]>(`${environment.apiUrl}/admin/departement/${id}/employes`,{withCredentials:true , observe : "response"});
   }
 
   deleteEmployee(id : number): Observable<HttpResponse<string>> {
-    return this.http.delete<string>(`${environment.apiUrl}/admin/employes/${id}`,{headers : this.headers , observe : "response",responseType : "text" as "json"});
+    return this.http.delete<string>(`${environment.apiUrl}/admin/employes/${id}`,{withCredentials:true , observe : "response",responseType : "text" as "json"});
   }
 
   deleteEmployeesOver60(): Observable<HttpResponse<string>> {
-    return this.http.delete<string>(`${environment.apiUrl}/admin/employes/age/60`,{headers : this.headers , observe : "response",responseType : "text" as "json"});
+    return this.http.delete<string>(`${environment.apiUrl}/admin/employes/age/60`,{withCredentials:true , observe : "response",responseType : "text" as "json"});
   }
 
   updateEmployee(id :number, employeeData: any, picture: File | null): Observable<HttpResponse<string>> {
@@ -38,7 +38,7 @@ export class EmployeeService {
     if (picture) {
       formData.append('picture', picture);
     }
-    return this.http.put<string>(`${environment.apiUrl}/admin/employes/${id}`, formData, {headers : this.headers,observe: "response",responseType : "text" as "json"});
+    return this.http.put<string>(`${environment.apiUrl}/admin/employes/${id}`, formData, {withCredentials:true,observe: "response",responseType : "text" as "json"});
   }
 
   addEmployee(employeeData: any, picture: File | null): Observable<number> {
@@ -47,7 +47,7 @@ export class EmployeeService {
     if (picture) {
       formData.append('picture', picture);
     }
-    return this.http.post<number>(`${environment.apiUrl}/admin/employes`, formData, {headers : this.headers});
+    return this.http.post<number>(`${environment.apiUrl}/admin/employes`, formData, {withCredentials:true});
   }
 
 }

@@ -39,7 +39,10 @@ export class EmployeesListComponent implements OnInit {
     this.departmentService.getAllDepartments().subscribe({
       next: (response) => {
         this.departments = response.body ?? [];
-        if(this.departments.length > 0) this.selectedDepartment= this.departments[0].id;
+        if(this.departments.length > 0) {
+          this.selectedDepartment = this.departments[0].id;
+          this.loadEmployees();
+        }
       },
       error: (err) => {
         this.handleError('Failed to load departments', err);
